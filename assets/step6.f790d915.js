@@ -1,0 +1,21 @@
+var m=Object.defineProperty;var u=(a,t,e)=>t in a?m(a,t,{enumerable:!0,configurable:!0,writable:!0,value:e}):a[t]=e;var n=(a,t,e)=>(u(a,typeof t!="symbol"?t+"":t,e),e);import{a as g,W as v,S as p,P as w,O as f,C as S,A as _,D as C,T as D,e as c,b as h,f as x}from"./OrbitControls.c3805648.js";import{G as y,S as z}from"./stats.module.5425e898.js";import"./base.d49d4c12.js";class b{constructor(t,e="three-container"){n(this,"container");n(this,"renderer");n(this,"scene");n(this,"camera");n(this,"clock",new g);n(this,"diposeCallback");n(this,"_gui");n(this,"stats");n(this,"animeID");n(this,"controls");n(this,"init",()=>{const{width:t,height:e,aspect:s}=this.size;this.renderer=new v({antialias:!0,alpha:!0}),this.renderer.setPixelRatio(window.devicePixelRatio),this.renderer.setSize(t,e),this.renderer.shadowMap.enabled=!0,this.container.appendChild(this.renderer.domElement),this.scene=new p,this.camera=new w(50,s,.01,100),this.camera.position.z=5});n(this,"_addEvents",()=>{window.addEventListener("resize",this.handleResize)});n(this,"handleResize",()=>{const{width:t,height:e,aspect:s}=this.size;this.camera.aspect=s,this.camera.updateProjectionMatrix(),this.renderer.setSize(t,e),this.render()});n(this,"setStats",()=>{this.stats||(this.stats=z(),this.container.appendChild(this.stats.dom))});n(this,"setOrbitControls",t=>(this.controls||(this.controls=new f(this.camera,this.renderer.domElement)),t&&(this.controls.enableDamping=!0,this.controls.dampingFactor=t),this.controls));n(this,"animate",t=>{this.animeID=requestAnimationFrame(this.animate.bind(this,t)),this.controls&&this.controls.enableDamping&&this.controls.update(),this.stats&&this.stats.update(),t&&t(),this.render()});n(this,"render",()=>{this.renderer.render(this.scene,this.camera)});n(this,"dispose",()=>{this.diposeCallback&&this.diposeCallback(),window.removeEventListener("resize",this.handleResize),this.animeID&&cancelAnimationFrame(this.animeID)});this.containerClassName=e,this.container=t.querySelector(`.${this.containerClassName}`),this.init(),this._addEvents()}get gui(){return this._gui||(this._gui=new y),this._gui}get size(){const[t,e]=[window.innerWidth,window.innerHeight];return{width:t,height:e,aspect:t/e}}}var A=`#define STANDARD
+
+varying vec3 v_normal;\r
+varying vec3 v_eye;`,L=`#include <fog_vertex>
+
+v_normal = normalize(normalMatrix * normal);\r
+v_eye = normalize(modelViewMatrix * vec4( position, 1.0 )).xyz;`,M=`#define STANDARD
+
+varying vec3 v_normal;\r
+varying vec3 v_eye;
+
+float fresnel(vec3 eye, vec3 normal) {\r
+  return pow(1.0 + dot(eye, normal), 3.0);\r
+}`,P=`#include <output_fragment>
+
+float _fresnel = fresnel(v_eye, v_normal);\r
+vec3 _color = vec3(1.0);\r
+outgoingLight += _fresnel * _color;\r
+outgoingLight = clamp(outgoingLight, 0.0, 1.0);
+
+gl_FragColor = vec4( outgoingLight, diffuseColor.a );`;class R extends b{constructor(e){super(e);n(this,"setScene",()=>{this.scene.background=new S("#1e1e1e"),this.camera.position.set(0,0,3),this.setOrbitControls(.1),this.setStats();const e=new _;this.scene.add(e)});n(this,"createLights",()=>{const e=new C("#fff",1);e.position.set(5,5,5),e.castShadow=!0;const s=3;e.shadow.camera.far=15,e.shadow.camera.top=s,e.shadow.camera.bottom=-s,e.shadow.camera.left=-s,e.shadow.camera.right=s,e.shadow.mapSize.set(2048,2048),this.scene.add(e)});n(this,"createModel",()=>{const e=new D(.5,.2,64,64),s=new c;s.onBeforeCompile=r=>{r.vertexShader=r.vertexShader.replace("#define STANDARD",A),r.vertexShader=r.vertexShader.replace("#include <fog_vertex>",L),r.fragmentShader=r.fragmentShader.replace("#define STANDARD",M),r.fragmentShader=r.fragmentShader.replace("#include <output_fragment>",P)};const o=new h(e,s);o.castShadow=!0,o.receiveShadow=!0,this.scene.add(o);const d=new x(5,5),l=new c,i=new h(d,l);i.rotation.x=-Math.PI/2,i.position.y=-1,i.receiveShadow=!0,this.scene.add(i)});n(this,"update",()=>{});this.setScene(),this.createModel(),this.createLights(),this.animate(this.update)}}class E{constructor(){n(this,"canvas");n(this,"createCanvas",()=>{const t=document.querySelector(".step6");return new R(t)});n(this,"addEvents",()=>{window.addEventListener("beforeunload",()=>{this.canvas.dispose()})});this.canvas=this.createCanvas(),this.addEvents()}}new E;
