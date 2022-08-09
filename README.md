@@ -19,6 +19,8 @@ Reference<br>
 
 ## step3：ライティングと影
 
+- castShadow、recieveShadowの関係
+
 ## step4：Lerp
 
 - wheel イベントを利用した回転
