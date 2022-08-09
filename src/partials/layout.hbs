@@ -1,0 +1,28 @@
+{{! 
+# params
+## must
+- title
+## optional
+- scriptPath
+- stylePath
+}}
+
+<html lang='ja'>
+	<head>
+		<meta charset='UTF-8' />
+		<meta name='viewport' content='width=device-width, initial-scale=1.0' />
+		<link rel='icon' type='image/svg+xml' href='/meta/favicon.svg' />
+		<title>{{title}}</title>
+		{{#if scriptPath}}
+		<script src={{scriptPath}} type='module' defer></script>
+		{{/if}}
+		<link rel='stylesheet' href='/styles/base.scss' />
+		{{#if stylePath}}
+		<link rel="stylesheet" href={{stylePath}} />
+		{{/if}}
+	</head>
+
+  <body>
+    {{> @partial-block}}
+	</body>
+</html>
