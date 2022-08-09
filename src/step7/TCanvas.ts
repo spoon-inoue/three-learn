@@ -8,16 +8,14 @@ export class TCanvas extends TCanvasBase {
 	private tl: gsap.core.Timeline
 
 	private datas = {
-		start: () => {
-			this.tl.restart(true)
-		},
-		reverse: () => {
-			this.tl.reverse()
-		},
+		start: () => this.tl.restart(true),
+		reverse: () => this.tl.reverse(),
 		combination: async () => {
 			await this.tl.restart()
 			this.tl.reverse()
-		}
+		},
+		forward: () => this.forward(),
+		backward: () => this.backward()
 	}
 
 	constructor(parentNode: ParentNode) {
@@ -43,6 +41,8 @@ export class TCanvas extends TCanvasBase {
 		this.gui.add(this.datas, 'start')
 		this.gui.add(this.datas, 'reverse')
 		this.gui.add(this.datas, 'combination')
+		this.gui.add(this.datas, 'forward')
+		this.gui.add(this.datas, 'backward')
 	}
 
 	private createLights = () => {
@@ -93,5 +93,34 @@ export class TCanvas extends TCanvasBase {
 		tl.to(this.mesh!.rotation, { x: 2 * Math.PI, y: 2 * Math.PI })
 		tl.to(this.mesh!.scale, { x: 1.5, y: 1.5, z: 1.5, duration: 2, ease: 'elastic.out(1.5, 0.2)' }, '<50%')
 		return tl
+	}
+
+	// ============================================
+	private from = {
+		rotation: [0, 0, 0],
+		scale: [1, 1, 1]
+	}
+
+	private to = {
+		rotation: [2 * Math.PI, 2 * Math.PI, 0],
+		scale: [1.5, 1.5, 1.5]
+	}
+
+	private forward = () => {
+		const [rx, ry, rz] = this.to.rotation
+		const [sx, sy, sz] = this.to.scale
+
+		const tl = gsap.timeline()
+		tl.to(this.mesh!.rotation, { x: rx, y: ry, z: rz, duration: 1, ease: 'power2.out' })
+		tl.to(this.mesh!.scale, { x: sx, y: sy, z: sz, duration: 2, ease: 'elastic.out(1.5, 0.2)' }, '<50%')
+	}
+
+	private backward = () => {
+		const [rx, ry, rz] = this.from.rotation
+		const [sx, sy, sz] = this.from.scale
+
+		const tl = gsap.timeline({ defaults: { duration: 1, ease: 'power2.in' } })
+		tl.to(this.mesh!.rotation, { x: rx, y: ry, z: rz })
+		tl.to(this.mesh!.scale, { x: sx, y: sy, z: sz }, '<')
 	}
 }
