@@ -11,6 +11,7 @@ https://www.figma.com/file/XcZzaV0GOjWi0OtGy78f1M/WebGL?node-id=0%3A1
 - sample を元に作成
 
 Reference<br>
+
 - [雛形にしたサンプル](https://github.com/mrdoob/three.js/blob/master/examples/webgl_raycaster_bvh.html)
 
 ## step2：抽象化
@@ -19,7 +20,7 @@ Reference<br>
 
 ## step3：ライティングと影
 
-- castShadow、recieveShadowの関係
+- castShadow、recieveShadow の関係
 
 ## step4：Lerp
 
@@ -34,6 +35,7 @@ Reference<br>
 - fresnel 反射
 
 Reference<br>
+
 - [WebGLProgram](https://threejs.org/docs/#api/en/renderers/webgl/WebGLProgram)
 - [GLSL (OpenGL ES2.0)リファレンス](https://gist.github.com/gyohk/abf13dbcb5be750b3b021752b280ccd3)
 
@@ -42,20 +44,24 @@ Reference<br>
 - onBeforeCompile
 
 Reference<br>
+
 - [ShaderLib](https://github.com/mrdoob/three.js/tree/dev/src/renderers/shaders/ShaderLib)
 - [ShaderChunk](https://github.com/mrdoob/three.js/tree/master/src/renderers/shaders/ShaderChunk)
 
+# step7：Gsap を使ったアニメーション
+
 # ---------------（以下、未定）---------------
-## step7：テクスチャー
+
+## step??：テクスチャー
 
 - sRGBConvert
 - Shader で使う
 - metalness=1
 
-## step8：オフスクリーンレンダリング
+## step??：オフスクリーンレンダリング
 
-## step9：PostProcessing
+## step??：PostProcessing
 
-## step10：GPGPU
+## step??：GPGPU
 
-## step11：spoon サイトの particle のクローンを作る
+## step??：spoon サイトの particle のクローンを作る

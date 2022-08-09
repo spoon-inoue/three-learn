@@ -34,7 +34,8 @@ export default defineConfig(({ mode }) => {
 					step3: path.resolve(__dirname, './src/step3/index.html'),
 					step4: path.resolve(__dirname, './src/step4/index.html'),
 					step5: path.resolve(__dirname, './src/step5/index.html'),
-					step6: path.resolve(__dirname, './src/step6/index.html')
+					step6: path.resolve(__dirname, './src/step6/index.html'),
+					step7: path.resolve(__dirname, './src/step7/index.html')
 				}
 			},
 			outDir: '../dist',
